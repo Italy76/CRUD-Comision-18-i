@@ -37,7 +37,7 @@ export function validarURL(input){
     }
 }
 
- export function validarGeneral(campoCodigo, campoProducto,campoDescripcion, campoCantidad, campoURL){ // Ahora inserto los parametros llamados como en el if de abajo, para que esta funcion pueda ser de tipo con parametro e pueda invocarse en en if de la funcion crearProducto de admin.js.
+ export function validarGeneral(campoCodigo, campoProducto,campoDescripcion, campoCantidad, campoURL){ // Ahora inserto los parametros llamados como en el if de abajo, para que esta funcion pueda ser de tipo con parametro e pueda invocarse en en if de la funcion crearProducto de admin.js.o
     // event es un objeto de la pagina web, que registra todo lo que pasa
    // event.preventDefault();  IMPORTANTE: saque el event y el preventDefault porque ahora el submit lo hace la funcion crearProducto en admin.js
     console.log("aqui tengo que validar todo de nuevo");
