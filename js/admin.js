@@ -8,7 +8,7 @@ let campoCantidad = document.querySelector("#cantidad");
 let campoURL = document.querySelector("#url");
 let formularioProducto = document.querySelector("#formProducto");
 //lista de productos
-let listaProductos = []
+let listaProductos = JSON.parse(localStorage.getItem("listaProductosKey")) || []; // no podemos dejar el arreglo indicado como vacio, porque si no cada vez que refrescamos la paginas, perdemos lod objetos almacenados en Local Storage. Por eso: el metodo parse transforma de nuevo en codigo js los objetos almacenados en Local Storage, que estan en formato JSON, e indicamos la ruta: localStorage - getItem nos retorna los objetos de ese arreglo llamado con nuestra palabra clave - en el caso en que este vacio el Local storage - entonces || [] nos da el arreglo de js vacio y no tendremos errores.
 
 campoCodigo.addEventListener("blur", ()=>{campoRequerido(campoCodigo)});
 campoProducto.addEventListener("blur", ()=>{campoRequerido(campoProducto)});
@@ -37,6 +37,14 @@ function crearProducto(){
      console.log(listaProductos);
      // limpiar el formulario
      limpiarFormulario();
+     // guardar en Local Storage el arreglo de productos para no perderlos
+     guardarLocalStorage();
+     // mostrar un mensaje al usuario
+     Swal.fire(
+        'Producto creado',
+        'Su producto fue correctamente creado',
+        'success'
+      )
 }
 
 function limpiarFormulario(){
@@ -48,4 +56,8 @@ function limpiarFormulario(){
     campoDescripcion.className =  "form-control";
     campoCantidad.className =  "form-control";
     campoURL.className = "form-control";
+}
+
+function guardarLocalStorage(){
+    localStorage.setItem("listaProductosKey", JSON.stringify(listaProductos)); // setItem es el meotodo para guardar nuestro arreglo de productos en Local storage. Tenemos que inventar una palabra clave de acceso, luego JSON con metodo stringify(invocar nuestro arreglo de productos).
 }
