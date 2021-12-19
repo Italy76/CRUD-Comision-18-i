@@ -76,7 +76,7 @@ function crearFila (productoNuevo){
     <td>${productoNuevo.cantidad}</td>
     <td>${productoNuevo.url}</td>
     <td>
-      <button class="btn btn-warning">Editar</button>
+      <button class="btn btn-warning" onclick=prepararEdicionProducto(${productoNuevo.codigo})>Editar</button>
       <button class="btn btn-danger">Borrar</button>
     </td>
   </tr>`
@@ -93,4 +93,17 @@ function cargaInicial(){ //fijarse que hayan objetos cargados en Local Storage p
 function borrarTabla(){
     let tabla = document.querySelector("#tablaProductos");
     tabla.innerHTML = ""  // este comando sirve para borrar los valores de la tabla.
+}
+
+ window.prepararEdicionProducto = function (codigo){ // usamos window con la funcion para editar producto: esto porque siendo el admin.html viculado un tipo modulo, y esta funcion en admin.js de tipo local, nos da error. Asi que tenemos que globalizar esta funcion.
+    console.log(codigo);
+    // obtener el objeto a modificar
+    let productoBuscado = listaProductos.find((buscarProducto)=>{return buscarProducto.codigo == codigo}) //la funcion find es parecida al forEach: aca tambien se inventa un parametro. Pero el find busca el objeto que corresponda a la condicion logica del return, que a su vez exige que el objeto del parametro de la funcion prepararEdicionProducto sea igual al codigo del producto que el find busca en el arreglo del localstorage
+    console.log(productoBuscado);
+    //mostrar los datos en el form
+    campoCodigo.value = productoBuscado.codigo;
+    campoProducto.value = productoBuscado.producto;
+    campoDescripcion.value = productoBuscado.descripcion;
+    campoCantidad.value = productoBuscado.cantidad;
+    campoURL.value = productoBuscado.url; // de esta forma, al presionar el boton EDITAR de la tabla, el objeto correspondiente sera visualizado en el formulario automaticamente.
 }
