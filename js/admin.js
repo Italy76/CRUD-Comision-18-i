@@ -17,6 +17,9 @@ campoCantidad.addEventListener("blur", ()=>{validarNumeros(campoCantidad)});
 campoURL.addEventListener("blur", ()=>{validarURL(campoURL)});
 formularioProducto.addEventListener("submit", guardarProducto); // antes aqui habia la funcion validarGeneral. Ahora no funciona porque siendo sin parametro y habiendola trasladada a otro archivo js, aqui no funciona (las demas tienen parametro y por eso funcionan). Asi cree una nueva funcion, guardarProducto, que ahora se ocupara del submit para la creacion de un nuevo objeto.
 
+// Llamar  ala funcion cargaInicial()
+cargaInicial(); // ha de ser llamada luego de listaProducto, para antes saber si en localStorage hay o no hay objetos guardados en el arreglo.
+
 function guardarProducto(event){
     event.preventDefault()
     // validar los campos del formulario
@@ -45,6 +48,8 @@ function crearProducto(){
         'Su producto fue correctamente creado',
         'success'
       )
+      // creo una nueva fila en la tabla
+      crearFila(productoNuevo);
 }
 
 function limpiarFormulario(){
@@ -60,4 +65,32 @@ function limpiarFormulario(){
 
 function guardarLocalStorage(){
     localStorage.setItem("listaProductosKey", JSON.stringify(listaProductos)); // setItem es el meotodo para guardar nuestro arreglo de productos en Local storage. Tenemos que inventar una palabra clave de acceso, luego JSON con metodo stringify(invocar nuestro arreglo de productos).
+}
+
+function crearFila (productoNuevo){
+    let tabla = document.querySelector("#tablaProductos");
+    tabla.innerHTML += `<tr>
+    <td>${productoNuevo.codigo}</td>
+    <td>${productoNuevo.producto}</td>
+    <td>${productoNuevo.descripcion}</td>
+    <td>${productoNuevo.cantidad}</td>
+    <td>${productoNuevo.url}</td>
+    <td>
+      <button class="btn btn-warning">Editar</button>
+      <button class="btn btn-danger">Borrar</button>
+    </td>
+  </tr>`
+}
+
+function cargaInicial(){ //fijarse que hayan objetos cargados en Local Storage para que funcione
+    // si hay datos en localstorage o en listaProductos dibujo las filas de la tabla
+    if(listaProductos.length > 0){
+        // dibujar fila
+        listaProductos.forEach((itemProducto)=>{crearFila(itemProducto)}) // dentro la funcion anonima iventamos un parametro que significa cada objeto que tiene el arreglo. el forEach SOLO funciona cuando llamamos a todos los elementos del arreglo
+    }
+}
+
+function borrarTabla(){
+    let tabla = document.querySelector("#tablaProductos");
+    tabla.innerHTML = ""  // este comando sirve para borrar los valores de la tabla.
 }
