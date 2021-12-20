@@ -4,7 +4,7 @@
 
 ## Demo ✨
 
-Proyecto CRUD: [Priyecto CRUD](https://github.com/Italy76/CRUD-Comision-18-i/tree/editarProducto)
+Proyecto CRUD: [Priyecto CRUD](https://peaceful-bose-7f759c.netlify.app)
 
 ## Instalaciones previas
 
